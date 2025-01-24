@@ -1,7 +1,7 @@
 [project]
-name = "django-template"
+name = "koco-hub"
 version = "0.1.0"
-description = "A Django project template"
+description = "KocoHub..."
 readme = "README.md"
 requires-python = ">=3.13"
 authors = [
