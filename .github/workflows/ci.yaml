@@ -105,13 +105,12 @@ jobs:
           echo "DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE"
           python -c "import sys; print('PYTHONPATH:', sys.path)"
 
-      # Apply Django migrations
-      - name: List Source Directory
-        run: ls -R src/
-
       # Execute Django test suite
       - name: Run Tests
-        run: uv run pytest -v
+        run: |
+          export PYTHONPATH=$PWD/src
+          export DJANGO_SETTINGS_MODULE=config.settings
+          uv run pytest -v
 
       # Save uv cache
       - name: Minimize uv cache
