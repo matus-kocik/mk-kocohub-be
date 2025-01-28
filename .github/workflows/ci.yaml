@@ -53,14 +53,17 @@ jobs:
           echo "DB_HOST=db" >> .env
           echo "DB_PORT=5432" >> .env
 
+      # Debug Python Path and Settings
+      - name: Set PATH Variables for Django
+        run: |
+          echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
+          echo "DJANGO_SETTINGS_MODULE=config.settings" >> $GITHUB_ENV
+
       # Set up project dependencies using UV Astral
       - name: Install UV Astral
         uses: astral-sh/setup-uv@v5
 
-      # Sync dependencies with uv.lock
-      - name: Sync Dependencies with uv.lock
-        run: uv sync
-
+      # Restore uv cache
       - name: Restore uv cache
         uses: actions/cache@v4
         with:
@@ -69,6 +72,10 @@ jobs:
           restore-keys: |
             uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
             uv-${{ runner.os }}
+
+      # Sync dependencies with uv.lock
+      - name: Sync Dependencies with uv.lock
+        run: uv sync
 
       # Update pre-commit hooks to avoid deprecated stages
       - name: Update Pre-commit Hooks
@@ -90,27 +97,13 @@ jobs:
       - name: Run isort (Check Mode)
         run: uv run isort --check-only .
 
-      # Check for security vulnerabilities
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
-
-      # Set Django settings module
-      - name: Set Django Settings Module
-        run: echo "DJANGO_SETTINGS_MODULE=config.settings" >> $GITHUB_ENV
-
-      # Debug Python Path and Settings
-      - name: Debug Python Path and Settings
-        run: |
-          echo "PYTHONPATH=$PYTHONPATH"
-          echo "DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE"
-          python -c "import sys; print('PYTHONPATH:', sys.path)"
+      # Apply database migrations
+      - name: Apply Migrations
+        run: uv run python manage.py migrate
 
       # Execute Django test suite
       - name: Run Tests
-        run: |
-          export PYTHONPATH=$PWD/src
-          export DJANGO_SETTINGS_MODULE=config.settings
-          uv run pytest -v
+        run: uv run pytest -v
 
       # Save uv cache
       - name: Minimize uv cache
