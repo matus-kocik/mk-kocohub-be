@@ -91,11 +91,19 @@ jobs:
 
       # Apply database migrations
       - name: Apply Migrations
-        run: uv run python manage.py migrate
+        run: |
+          export PYTHONPATH=$PWD/src
+          export DJANGO_SETTINGS_MODULE=config.settings
+          cd src
+          uv run python manage.py migrate
 
       # Execute Django test suite
       - name: Run Tests
-        run: uv run pytest -v
+        run: |
+          export PYTHONPATH=$PWD/src
+          export DJANGO_SETTINGS_MODULE=config.settings
+          cd src
+          uv run pytest -v
 
       # Save uv cache
       - name: Minimize uv cache
