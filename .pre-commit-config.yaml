@@ -44,3 +44,14 @@ repos:
       # Exports requirements.txt with hashes
       - id: uv-export
         args: ["--output-file", "requirements.txt"]
+
+  # Pytest - test runner
+  - repo: local
+    hooks:
+      - id: pytest
+        args: ["--verbose", "--disable-warnings"]
+        name: pytest
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: true
