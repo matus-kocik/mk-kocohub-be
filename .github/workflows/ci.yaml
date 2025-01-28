@@ -96,7 +96,7 @@ jobs:
 
       # Execute Django test suite
       - name: Run Tests
-        run: uv run pytest
+        run: uv run pytest --ds=config.settings.test
 
       - name: Minimize uv cache
         run: uv cache prune --ci
