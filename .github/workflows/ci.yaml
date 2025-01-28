@@ -90,6 +90,10 @@ jobs:
       - name: Run isort (Check Mode)
         run: uv run isort --check-only .
 
+      # Set Python Path
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
+
       # Execute Django test suite
       - name: Run Tests
         run: uv run pytest
