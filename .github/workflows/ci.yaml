@@ -53,6 +53,7 @@ jobs:
           echo "DB_HOST=db" >> .env
           echo "DB_PORT=5432" >> .env
           echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
+          echo "ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}" >> .env
 
       # Debug Python Path and Settings
       - name: Set PATH Variables for Django
