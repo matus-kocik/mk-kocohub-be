@@ -46,6 +46,7 @@ jobs:
       # Set Environment Variables
       - name: Set Environment Variables
         run: |
+          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
           echo "DB_ENGINE=django.db.backends.postgresql" >> .env
           echo "DB_NAME=${{ secrets.POSTGRES_DB }}" >> .env
           echo "DB_USER=${{ secrets.POSTGRES_USER }}" >> .env
