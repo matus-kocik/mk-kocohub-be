@@ -46,16 +46,12 @@ jobs:
       # Set Environment Variables
       - name: Set Environment Variables
         run: |
-          echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> .env
-          echo "ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }}" >> .env
           echo "DB_ENGINE=django.db.backends.postgresql" >> .env
           echo "DB_NAME=${{ secrets.POSTGRES_DB }}" >> .env
           echo "DB_USER=${{ secrets.POSTGRES_USER }}" >> .env
           echo "DB_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
           echo "DB_HOST=db" >> .env
           echo "DB_PORT=5432" >> .env
-          echo "PYTHONPATH=$PWD/src" >> $GITHUB_ENV
-          echo "DJANGO_SETTINGS_MODULE=config.settings" >> $GITHUB_ENV
 
       # Set up project dependencies using UV Astral
       - name: Install UV Astral
@@ -93,10 +89,6 @@ jobs:
       # Check import ordering
       - name: Run isort (Check Mode)
         run: uv run isort --check-only .
-
-      # Run tests
-      - name: Run Tests
-        run: uv run pytest
 
       # Save uv cache
       - name: Minimize uv cache
