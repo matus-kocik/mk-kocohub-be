@@ -117,6 +117,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = CustomUserManager()
 
     def __str__(self):
+        """
+        String representation of the CustomUser model. Returns the user's email.
+        """
         return self.email
 
     class Meta:

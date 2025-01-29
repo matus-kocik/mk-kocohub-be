@@ -90,6 +90,13 @@ jobs:
       - name: Run isort (Check Mode)
         run: uv run isort --check-only .
 
+      - name: Run Tests
+        run: |
+          cd src
+          export PYTHONPATH=$PWD
+          export DJANGO_SETTINGS_MODULE=config.settings
+          uv run pytest -v tests
+
       # Save uv cache
       - name: Minimize uv cache
         run: uv cache prune --ci
