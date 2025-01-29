@@ -70,25 +70,17 @@ jobs:
             uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
             uv-${{ runner.os }}
 
-      # Update pre-commit hooks to avoid deprecated stages
-      - name: Update Pre-commit Hooks
-        run: uv run pre-commit autoupdate
-
-      # Run pre-commit hooks
-      - name: Run Pre-commit Hooks
-        run: uv run pre-commit run --all-files
-
-      # Check code formatting
+      # Black (formátovanie kódu)
       - name: Run Black (Check Mode)
         run: uv run black --check .
 
-      # Run code linting
-      - name: Run Ruff
-        run: uv run ruff check .
-
-      # Check import ordering
+      # isort (importy)
       - name: Run isort (Check Mode)
         run: uv run isort --check-only .
+
+      # Ruff (lintovanie)
+      - name: Run Ruff
+        run: uv run ruff check .
 
       # Save uv cache
       - name: Minimize uv cache
