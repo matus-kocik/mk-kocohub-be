@@ -3,6 +3,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models.functions import Concat
 
@@ -34,9 +35,10 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError("The Email field is required and must be set")
         email = self.normalize_email(email)
+        extra_fields.setdefault("is_active", True)
         user = self.model(email=email, **extra_fields)
         user.set_password(password)
-        user.save()
+        user.save(using=self._db)
         return user
 
     def create_superuser(self, email, password, **extra_fields):
@@ -142,4 +144,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
                 the local part intact.
         """
         super().clean()
+        if not self.email:
+            raise ValidationError("The Email field is required and must be set")
         self.email = self.__class__.objects.normalize_email(self.email)
