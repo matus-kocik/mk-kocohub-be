@@ -70,15 +70,15 @@ jobs:
             uv-${{ runner.os }}-${{ hashFiles('uv.lock') }}
             uv-${{ runner.os }}
 
-      # Black (formátovanie kódu)
+      # Black (code formatter)
       - name: Run Black (Check Mode)
         run: uv run black --check .
 
-      # isort (importy)
+      # isort (organize imports)
       - name: Run isort (Check Mode)
         run: uv run isort --check-only .
 
-      # Ruff (lintovanie)
+      # Ruff (lint and format code)
       - name: Run Ruff
         run: uv run ruff check .
 
