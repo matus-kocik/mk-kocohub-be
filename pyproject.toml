@@ -11,8 +11,8 @@ license = "MIT"
 dependencies = [
     "python-decouple>=3.8",
     "psycopg[binary]>=2.9.10",
-    "django>=5.1.5",
     "django-extensions>=3.2.3",
+    "django>=5.1.6",
 ]
 
 [dependency-groups]
