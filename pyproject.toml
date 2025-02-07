@@ -11,19 +11,19 @@ license = "MIT"
 dependencies = [
     "python-decouple>=3.8",
     "psycopg[binary]>=2.9.10",
-    "django-extensions>=3.2.3",
     "django>=5.1.6",
 ]
 
 [dependency-groups]
 dev = [
     "pip-tools>=6.12.3",
-    "black>=24.10.0",
-    "isort>=5.13.2",
     "pre-commit>=4.1.0",
     "pytest>=8.3.4",
     "pytest-django>=4.9.0",
-    "ruff>=0.9.2"
+    "django-extensions>=3.2.3",
+    "black>=25.1.0",
+    "isort>=6.0.0",
+    "ruff>=0.9.5",
 ]
 
 [tool.pytest.ini_options]
