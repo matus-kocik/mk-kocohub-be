@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django_extensions",
     # Local apps
     "apps.users",
+    "apps.core",
 ]
 
 # Custom User Model
