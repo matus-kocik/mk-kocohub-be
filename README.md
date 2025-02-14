@@ -1,4 +1,4 @@
-# 🌐 **KocoHub**
+# KocoHub
 
 **KocoHub** is a digital project focused on managing finances, notes, and organizing important information. The goal is to create a **simple, fast, and clear** system that allows efficient tracking of income, expenses, categories, and other data.
 
